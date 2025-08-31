@@ -1,0 +1,131 @@
+# ===============================
+# OS and Editor-specific files
+# ===============================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+
+# Common editor settings
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.bak
+
+# ===============================
+# Python / Django
+# ===============================
+
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments (catch any name)
+env/
+venv/
+ENV*/
+VENV*/
+*.env
+*.venv
+
+# Django SQLite DB and local settings
+*.sqlite3
+db.sqlite3
+*.log
+local_settings.py
+
+# Secret or config files
+.env
+.env.*  # Support .env.dev, .env.prod, etc.
+
+# Django static and media files
+/static/
+/media/
+
+# Migrations (optional, if auto-generated)
+**/migrations/**/__pycache__/
+**/migrations/*.pyc
+**/migrations/*.pyo
+**/migrations/*.log
+**/migrations/*.tmp
+
+# ===============================
+# Node / React
+# ===============================
+
+# Dependency directories (catch nested)
+**/node_modules/
+node_modules/
+
+# Build outputs (React/webpack)
+**/build/
+**/dist/
+build/
+dist/
+
+# Cache files
+.npm/
+.yarn-cache/
+.pnpm-debug.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# React env files
+*.env.local
+*.env.development.local
+*.env.test.local
+*.env.production.local
+
+# React testing coverage
+**/coverage/
+
+# ===============================
+# Other Tools & Miscellaneous
+# ===============================
+
+# JetBrains (WebStorm, PyCharm, etc.)
+.idea/
+*.iml
+
+# Test/coverage outputs
+.coverage
+.tox/
+.pytest_cache/
+nosetests.xml
+test-results/
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+*.bak
+
+# ===============================
+# Git & CI
+# ===============================
+
+# Git files
+*.orig
+*.rej
+
+# CI/CD
+.DS_Store
+*.tgz
+*.lock-wscript
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
