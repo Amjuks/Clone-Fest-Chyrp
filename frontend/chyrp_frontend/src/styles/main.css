@@ -255,14 +255,14 @@ button[type=submit] {
   transition: border-color 0.3s ease;
 }
 .auth-input .MuiOutlinedInput-root:hover fieldset {
-  border-color: #ababab;
+  border-color: rgb(170.5, 170.5, 170.5);
 }
 .auth-input .MuiOutlinedInput-root.Mui-focused fieldset {
   border-color: #1976d2;
   border-width: 2px;
 }
 .auth-input .MuiInputLabel-root {
-  color: #378fe7;
+  color: rgb(54.829787234, 143.4765957447, 231.170212766);
   font-weight: 500;
 }
 .auth-input .MuiInputLabel-root.Mui-focused {
@@ -289,11 +289,11 @@ button[type=submit] {
   font-weight: 600;
 }
 .MuiSnackbar-root .MuiAlert-root.MuiAlert-standardSuccess {
-  background-color: #9cdb9f;
+  background-color: rgb(156.3157894737, 218.6842105263, 159.4736842105);
   color: #2e7d32;
 }
 .MuiSnackbar-root .MuiAlert-root.MuiAlert-standardError {
-  background-color: #f7d7d7;
+  background-color: rgb(246.619047619, 215.380952381, 215.380952381);
   color: #d32f2f;
 }
 
@@ -303,6 +303,89 @@ button[type=submit] {
   }
   .auth-title {
     font-size: 2rem;
+  }
+}
+.homepage {
+  background: #fff;
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  padding-bottom: 4rem;
+}
+
+/* Hero Section */
+.hero {
+  background: #000;
+  color: #fff;
+  padding: 4rem 0;
+}
+.hero .typing-text {
+  font-weight: 700;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  animation: typing 2.5s steps(30, end) forwards;
+}
+.hero .hero-subtext {
+  margin: 1rem 0;
+  font-size: 1.2rem;
+}
+.hero .hero-illustration {
+  background: #fff;
+  height: 250px;
+  border-radius: 16px;
+}
+
+/* About Section */
+.about {
+  padding: 3rem 0;
+  text-align: center;
+}
+
+/* Features */
+.features-section {
+  margin: 2rem 0;
+  text-align: center;
+}
+.features-section .section-title {
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+.features-section .feature-card {
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: rgb(214, 208, 201);
+}
+.features-section .feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+.features-section .feature-card .MuiTypography-h6 {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.features-section .feature-card .MuiTypography-body2 {
+  color: #777;
+}
+
+/* Example Blog */
+.example-blog .cta-btn {
+  margin-top: 1rem;
+}
+
+/* Animations */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
   }
 }
 

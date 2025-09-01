@@ -1,0 +1,105 @@
+.homepage {
+  background: #fff;
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  padding-bottom: 4rem;
+}
+
+/* Hero Section */
+.hero {
+  background: #000;
+  color: #fff;
+  padding: 4rem 0;
+
+  .typing-text {
+    font-weight: 700;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+    animation: typing 2.5s steps(30, end) forwards;
+  }
+
+  .hero-subtext {
+    margin: 1rem 0;
+    font-size: 1.2rem;
+  }
+
+  .hero-illustration {
+    background: #fff;
+    height: 250px;
+    border-radius: 16px;
+  }
+}
+
+/* About Section */
+.about {
+  padding: 2rem;
+  text-align: center;
+
+  h5 {
+    font-size: 1.8rem;   // increased heading size
+    font-weight: 700;    // bold
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1.1rem;   // slightly larger paragraph text
+    font-weight: 500;    // medium weight for readability
+    color: #555;         // softer color for balance
+    line-height: 1.6;    // better readability
+  }
+}
+
+
+/* Features */
+.features-section {
+  margin: 2rem 0;
+  text-align: center;
+
+  .section-title {
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+
+  .feature-card {
+    height: 180px; // fixed equal height
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: rgb(214, 208, 201);
+
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .MuiTypography-h6 {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .MuiTypography-body2 {
+      color: #777;
+    }
+  }
+}
+
+
+/* Example Blog */
+.example-blog {
+  .cta-btn {
+    margin-top: 1rem;
+  }
+}
+
+/* Animations */
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
