@@ -1,0 +1,67 @@
+.header {
+  background: linear-gradient(135deg, #1e1e2f, #2a2a40);
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+
+  .header-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header-logo {
+    font-weight: 700;
+    text-decoration: none;
+    color: #fff;
+    background: linear-gradient(90deg, #4f46e5, #6366f1, #22d3ee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1rem;
+
+    .nav-btn {
+      color: #fff;
+      font-weight: 500;
+      text-transform: none;
+
+      &:hover {
+        color: #22d3ee;
+        background: rgba(255, 255, 255, 0.1);
+      }
+    }
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  .mobile-menu-btn {
+    display: none;
+    @media (max-width: 768px) {
+      display: block;
+    }
+  }
+
+  .auth-section {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .auth-btn {
+      color: #fff;
+      font-weight: 600;
+      text-transform: none;
+
+      &:hover {
+        color: #22d3ee;
+      }
+    }
+
+    .avatar-btn {
+      padding: 0;
+    }
+  }
+}

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Container, TextField, Button, Typography, Box, Snackbar, Alert } from '@mui/material';
+import {
+  TextField, Button, Typography, Box, Snackbar, Alert
+} from '@mui/material';
 import { register, login } from '../services/auth';
 import { useNavigate } from 'react-router-dom';
 
@@ -25,7 +27,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <Container maxWidth="sm" className="auth-container">
+    <div className="auth-page">
       <Box className="auth-box">
         <Typography variant="h4" className="auth-title">Register</Typography>
 
@@ -38,7 +40,6 @@ const RegisterPage = () => {
             value={form.username}
             onChange={handleChange}
             autoFocus
-            className="auth-input"
           />
 
           <TextField
@@ -49,7 +50,6 @@ const RegisterPage = () => {
             required
             value={form.password}
             onChange={handleChange}
-            className="auth-input"
           />
 
           <Button type="submit" variant="contained" fullWidth className="auth-button">
@@ -72,7 +72,7 @@ const RegisterPage = () => {
           {snackbar.message}
         </Alert>
       </Snackbar>
-    </Container>
+    </div>
   );
 };
 

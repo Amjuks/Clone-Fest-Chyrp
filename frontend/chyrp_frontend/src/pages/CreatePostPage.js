@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Typography, MenuItem } from '@mui/material';
+import {
+  TextField, Button, Typography, MenuItem, Chip,
+} from '@mui/material';
 import { createPost } from '../services/postService';
 import { getCurrentUser } from '../services/auth';
 import axios from 'axios';
@@ -13,11 +15,12 @@ function CreatePostPage() {
     title: '',
     content: '',
     category: '',
-    hashtags: '',
+    hashtags: [],
     image: null,
     video: null,
     attachments: [],
   });
+  const [hashtagInput, setHashtagInput] = useState('');
 
   useEffect(() => {
     getCurrentUser()
@@ -37,13 +40,27 @@ function CreatePostPage() {
     setForm({ ...form, [name]: files });
   };
 
+  const handleHashtagKeyDown = (e) => {
+    if ((e.key === 'Enter' || e.key === ',') && hashtagInput.trim()) {
+      e.preventDefault();
+      if (!form.hashtags.includes(hashtagInput.trim())) {
+        setForm({ ...form, hashtags: [...form.hashtags, hashtagInput.trim()] });
+      }
+      setHashtagInput('');
+    }
+  };
+
+  const removeHashtag = (tag) => {
+    setForm({ ...form, hashtags: form.hashtags.filter(ht => ht !== tag) });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = new FormData();
     data.append('title', form.title);
     data.append('content', form.content);
     data.append('category', form.category);
-    data.append('hashtags', form.hashtags);
+    data.append('hashtags', form.hashtags.join(','));
 
     if (form.image?.[0]) data.append('image', form.image[0]);
     if (form.video?.[0]) data.append('video', form.video[0]);
@@ -64,9 +81,11 @@ function CreatePostPage() {
 
   return (
     <div className="create-post-container">
-      <Typography variant="h4" className="title">Create New Post</Typography>
+      <Typography variant="h4" className="title">✨ Create New Post</Typography>
+
       <form onSubmit={handleSubmit} className="post-form">
 
+        {/* Title */}
         <TextField
           label="Title"
           name="title"
@@ -74,9 +93,11 @@ function CreatePostPage() {
           onChange={handleChange}
           fullWidth
           required
-          helperText="Enter a clear and descriptive post title"
+          helperText={`${form.title.length}/120 characters`}
+          inputProps={{ maxLength: 120 }}
         />
 
+        {/* Content */}
         <TextField
           label="Content"
           name="content"
@@ -89,6 +110,7 @@ function CreatePostPage() {
           helperText="Write your main content here"
         />
 
+        {/* Category */}
         <TextField
           label="Category"
           name="category"
@@ -104,27 +126,53 @@ function CreatePostPage() {
           ))}
         </TextField>
 
-        <TextField
-          label="Hashtags"
-          name="hashtags"
-          value={form.hashtags}
-          onChange={handleChange}
-          fullWidth
-          helperText="Separate hashtags with commas (e.g. travel, food, dev)"
-        />
+        {/* Hashtags */}
+        <div className="hashtags-field">
+          <TextField
+            label="Hashtags"
+            value={hashtagInput}
+            onChange={(e) => setHashtagInput(e.target.value)}
+            onKeyDown={handleHashtagKeyDown}
+            fullWidth
+            helperText="Press Enter or comma to add"
+          />
+          <div className="hashtags-preview">
+            {form.hashtags.map((tag, idx) => (
+              <Chip
+                key={idx}
+                label={`#${tag}`}
+                onDelete={() => removeHashtag(tag)}
+                variant="outlined"
+              />
+            ))}
+          </div>
+        </div>
 
+        {/* Image Upload */}
         <div className="file-upload-group">
           <label>Cover Image (optional)</label>
           <input type="file" name="image" accept="image/*" onChange={handleFileChange} />
-          {form.image?.[0] && <p className="filename">📷 {form.image[0].name}</p>}
+          {form.image?.[0] && (
+            <div className="preview">
+              <img src={URL.createObjectURL(form.image[0])} alt="preview" />
+              <p>📷 {form.image[0].name}</p>
+            </div>
+          )}
         </div>
 
+        {/* Video Upload */}
         <div className="file-upload-group">
           <label>Video (optional)</label>
           <input type="file" name="video" accept="video/*" onChange={handleFileChange} />
-          {form.video?.[0] && <p className="filename">🎞️ {form.video[0].name}</p>}
+          {form.video?.[0] && (
+            <div className="preview">
+              <video src={URL.createObjectURL(form.video[0])} controls />
+              <p>🎞️ {form.video[0].name}</p>
+            </div>
+          )}
         </div>
 
+        {/* Attachments */}
         <div className="file-upload-group">
           <label>Attachments (optional, max 3)</label>
           <input type="file" name="attachments" multiple onChange={handleFileChange} />
@@ -137,7 +185,14 @@ function CreatePostPage() {
           )}
         </div>
 
-        <Button variant="contained" color="primary" type="submit">Submit Post</Button>
+        {/* Submit */}
+        <Button
+          variant="contained"
+          type="submit"
+          className="submit-btn"
+        >
+          Submit Post
+        </Button>
       </form>
     </div>
   );

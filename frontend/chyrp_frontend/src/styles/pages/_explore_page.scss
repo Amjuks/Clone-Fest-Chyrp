@@ -1,16 +1,65 @@
 .explore-container {
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 2rem 1.5rem;
+  background: linear-gradient(135deg, #0f0f0f, #1b1b2f, #2d1e4f);
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
 
   .explore-title {
-    margin-bottom: 1.5rem;
-    font-weight: 700;
+    margin-bottom: 2rem;
+    font-weight: 800;
     text-align: center;
-    color: #222;
+    font-size: 2.8rem;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, #9d4edd, #7a5af5, #00bbf9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+  }
+
+  .search-bar {
+    max-width: 700px;
+    margin: 0 auto 2rem auto;
+    width: 100%;
+
+    .MuiOutlinedInput-root {
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 12px;
+      padding-left: 0.5rem;
+      color: #fff;
+
+      fieldset {
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      &:hover fieldset {
+        border-color: #7a5af5;
+      }
+
+      input {
+        color: #f5f5f5;
+      }
+
+      .MuiInputAdornment-root {
+        color: #bbb;
+      }
+    }
+
+    input {
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    .MuiSvgIcon-root {
+      color: #bbb;
+    }
   }
 
   .post-list {
+    flex-grow: 1;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 1.5rem;
@@ -19,39 +68,40 @@
   .post-card {
     display: flex;
     flex-direction: column;
-    height: 460px; // fixed height for uniformity
-    text-decoration: none; // removes underline from RouterLink
-    color: inherit; // keeps MUI typography color
-    transition: box-shadow 0.3s ease;
+    background: rgba(30, 30, 30, 0.95);
+    color: #eee;
+    border-radius: 14px;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 
     &:hover {
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      transform: translateY(-6px);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6);
     }
 
-    .post-image {
-      height: 180px;
+    .post-image,
+    .post-video {
       object-fit: cover;
-      border-top-left-radius: 4px;
-      border-top-right-radius: 4px;
+      width: 100%;
     }
 
     .MuiCardContent-root {
+      padding: 1rem 1.25rem;
       display: flex;
       flex-direction: column;
-      flex-grow: 1;
-      padding: 1rem 1.25rem;
+      gap: 0.6rem;
     }
 
     .post-header {
       display: flex;
       align-items: center;
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.4rem;
 
       .MuiAvatar-root {
         width: 44px;
         height: 44px;
         margin-right: 0.75rem;
-        border: 2px solid #ddd;
+        border: 2px solid #444;
       }
 
       .user-info {
@@ -60,52 +110,68 @@
 
         .MuiTypography-subtitle1 {
           font-weight: 600;
-          color: #333;
-          line-height: 1.2;
+          color: #fff;
         }
 
         .MuiTypography-caption {
-          color: #777;
-          font-style: italic;
+          color: #aaa;
+          font-size: 0.8rem;
         }
       }
     }
 
     .post-title {
       font-weight: 700;
-      margin-bottom: 0.6rem;
-      color: #1a1a1a;
+      margin-bottom: 0.25rem;
+      color: #f5f5f5;
       line-height: 1.3;
-      max-height: 3.9em; // approx 3 lines
+      max-height: 3.9em;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
     .post-snippet {
       flex-grow: 1;
-      color: #555;
-      font-size: 0.9rem;
+      color: #ddd;
+      font-size: 0.92rem;
       line-height: 1.4;
       overflow: hidden;
-      max-height: 4.2em; // approx 3 lines
+      max-height: 4.2em;
       text-overflow: ellipsis;
-      margin-bottom: 1rem;
     }
 
     .post-meta {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.8rem;
       color: #999;
-      font-weight: 500;
-      border-top: 1px solid #eee;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
       padding-top: 0.5rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+      font-size: 0.8rem;
+    }
 
-      span {
-        white-space: nowrap;
+    .file-links {
+      margin-top: 0.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+
+      .file-link {
+        background: #2a2a2a;
+        color: #fff;
+        padding: 0.3rem 0.6rem;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        text-decoration: none;
+        transition: background 0.2s;
+
+        &:hover {
+          background: #3a3a3a;
+        }
       }
     }
+  }
+
+  .skeleton-card {
+    background: rgba(40, 40, 40, 0.9);
+    border-radius: 14px;
+    overflow: hidden;
   }
 }
