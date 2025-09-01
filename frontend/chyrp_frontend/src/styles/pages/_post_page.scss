@@ -53,21 +53,52 @@
     }
   }
 
-  .hashtags {
+  .post-meta-block {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(6px);
+  border-radius: 12px;
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 1rem;
+  transition: background 0.3s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .category-chip {
+    background: #6a5acd;
+    color: #fff;
+    font-weight: 500;
+
+    .MuiSvgIcon-root {
+      color: #fff;
+    }
+  }
+
+  .hashtags-wrapper {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+    margin-left: auto;
 
     .MuiChip-root {
-      background: rgba(255, 255, 255, 0.08);
-      color: #ddd;
-      border: 1px solid rgba(255, 255, 255, 0.2);
       font-weight: 500;
+      transition: transform 0.2s ease, background 0.2s ease;
+
       &:hover {
-        background: rgba(255, 255, 255, 0.15);
+        background-color: rgba(255, 255, 255, 0.15);
+        transform: scale(1.05);
       }
     }
   }
+}
+
 
   .post-content {
     background: rgba(255, 255, 255, 0.04);
@@ -109,12 +140,5 @@
 
   .post-actions {
     margin-top: 1rem;
-  }
-
-  .comments-thread {
-    margin-top: 2rem;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    padding: 1rem;
   }
 }

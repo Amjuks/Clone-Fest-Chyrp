@@ -1,29 +1,5 @@
 .like-button {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: transparent;
-  border-radius: 2rem;
-  padding: 4px 8px;
-  transition: background 0.3s ease;
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.05);
-  }
-
-  .like-icon {
-    color: #aaa;
-    transition: transform 0.2s ease, color 0.3s ease;
-
-    &.liked {
-      color: #ff4d6d; // theme accent (can change to primary)
-      transform: scale(1.2);
-    }
-  }
-
-  .like-count {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #e0e0e0; // consistent contrast
+  &.liked {
+    color: #e91e63;
   }
 }

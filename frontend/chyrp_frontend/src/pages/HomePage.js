@@ -37,7 +37,6 @@ export default function HomeLanding() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
 
-  // OPTIONAL: hook up auth; or just comment this block out if not needed
   useEffect(() => {
     getCurrentUser()
       .then(res => setUser(res.data))
@@ -159,7 +158,7 @@ export default function HomeLanding() {
                   <StarIcon />
                   <StarIcon />
                   <Typography variant="caption">
-                    Loved by 5k+ creators
+                    Loved by many creators
                   </Typography>
                 </Stack>
               </MotionBox>
@@ -408,7 +407,6 @@ export default function HomeLanding() {
             <Typography variant="body1" className="cta-sub">
               Spin up your first post in minutes and make it shine.
             </Typography>
-            <Stack direction="row" spacing={2} justifyContent="center">
               <Button
                 variant="contained"
                 className="cta-primary"
@@ -416,14 +414,6 @@ export default function HomeLanding() {
               >
                 Start Blogging Now
               </Button>
-              <Button
-                variant="outlined"
-                className="cta-secondary"
-                onClick={() => navigate('/pricing')}
-              >
-                View Pricing
-              </Button>
-            </Stack>
           </Box>
         </Container>
         <div className="cta-blob" />

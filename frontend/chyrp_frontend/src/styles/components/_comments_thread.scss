@@ -12,30 +12,75 @@
     text-align: left;
   }
 
+  // Comment form styling
   .comment-form {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 0.75rem;
     margin-bottom: 1.5rem;
+    // background: rgba(255, 255, 255, 0.03);
+    padding: 1rem;
+    border-radius: 12px;
+    // border: 1px solid rgba(255, 255, 255, 0.08);
+
+    .comment-avatar {
+      width: 40px;
+      height: 40px;
+      margin-top: 2px;
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      font-size: 1rem;
+      background-color: #333;
+      color: #ccc;
+    }
 
     .comment-input {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 10px;
+      flex: 1;
 
-      input {
-        color: #eee;
+      .input-root {
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.02);
       }
 
-      fieldset {
-        border-color: rgba(255, 255, 255, 0.2);
+      .input-outline {
+        border-color: rgba(255, 255, 255, 0.12) !important;
+      }
+
+      .input-multiline {
+        color: #eee;
+        padding: 0.75rem 1rem !important;
+        line-height: 1.5;
+      }
+
+      &:hover .input-outline {
+        border-color: #666 !important;
+      }
+
+      &.Mui-focused .input-outline {
+        border-color: #888 !important;
       }
     }
 
     .comment-btn {
-      padding: 0.5rem 1.25rem;
-      border-radius: 10px;
-      font-weight: 600;
-      text-transform: none;
+      min-width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      padding: 0;
+      font-size: 1.2rem;
+      color: #ddd;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background-color: rgba(255, 255, 255, 0.05);
+      transition: background-color 0.2s, color 0.2s;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #fff;
+      }
+
+      &:disabled {
+        background-color: rgba(255, 255, 255, 0.05);
+        color: #777;
+        cursor: not-allowed;
+      }
     }
   }
 
@@ -49,6 +94,8 @@
         height: 42px;
         margin-right: 0.75rem;
         border: 2px solid rgba(255, 255, 255, 0.15);
+        background-color: #333;
+        color: #ccc;
       }
 
       .comment-header {

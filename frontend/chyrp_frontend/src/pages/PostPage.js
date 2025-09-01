@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate  } from 'react-router-dom';
 import {
   Typography,
   Avatar,
   Chip,
   Grid,
   CircularProgress,
+  Paper,
+  Box,
 } from '@mui/material';
 import { InsertDriveFile as FileIcon } from '@mui/icons-material';
 import LikeButton from '../components/LikeButton';
+import CategoryIcon from '@mui/icons-material/Category';
 import CommentsThread from '../components/CommentsThread';
 import API from '../services/api';
 import { formatDistanceToNow } from 'date-fns';
@@ -17,6 +20,7 @@ const PostPage = () => {
   const { id } = useParams();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     API.get(`posts/${id}/`)
@@ -106,28 +110,53 @@ const PostPage = () => {
       )}
 
       {/* Hashtags */}
-      {post.hashtags?.length > 0 && (
-        <div className="hashtags">
-                <div className="post-actions">
-        <LikeButton
-          postId={post.id}
-          initialLiked={post.liked_by_me}
-          initialCount={post.like_count}
-        />
-      </div>
-
-          {post.hashtags.map(ht => (
-            <Chip
-              key={ht.id}
-              label={`#${ht.name}`}
-              size="small"
-              clickable
-              color="primary"
-              variant="outlined"
+      {/* Post Actions & Tags */}
+      <Paper elevation={2} className="post-meta-block">
+        <Grid container spacing={1} alignItems="center" wrap="wrap">
+          {/* Like Button */}
+          <Grid item>
+            <LikeButton
+              postId={post.id}
+              initialLiked={post.liked_by_me}
+              initialCount={post.like_count}
             />
-          ))}
-        </div>
-      )}
+          </Grid>
+
+          {/* Category */}
+          {post.category && (
+          <Grid item>
+            <Chip
+              icon={<CategoryIcon />}
+              label={post.category}
+              size="small"
+              className="category-chip"
+              onClick={() => navigate(`/posts?category=${encodeURIComponent(post.category)}`)}
+              clickable
+            />
+          </Grid>
+        )}
+
+          {/* Hashtags */}
+          {post.hashtags?.length > 0 && (
+            <Grid item xs>
+              <Box className="hashtags-wrapper">
+                {post.hashtags.map((ht, index) => (
+                  <Chip
+                    key={index}
+                    label={`#${ht}`}
+                    size="small"
+                    clickable
+                    color="primary"
+                    variant="outlined"
+                    onClick={() => navigate(`/posts?hashtag=${encodeURIComponent(ht)}`)}
+                  />
+                ))}
+              </Box>
+            </Grid>
+          )}
+        </Grid>
+      </Paper>
+
 
       {/* Content */}
       <div className="post-content">
@@ -154,19 +183,8 @@ const PostPage = () => {
         </div>
       )}
 
-      {/* Actions */}
-      {/* <div className="post-actions">
-        <LikeButton
-          postId={post.id}
-          initialLiked={post.liked_by_me}
-          initialCount={post.like_count}
-        />
-      </div> */}
-
       {/* Comments */}
-      <div className="comments-thread">
-        <CommentsThread postId={post.id} />
-      </div>
+      <CommentsThread postId={post.id} />
     </div>
   );
 };

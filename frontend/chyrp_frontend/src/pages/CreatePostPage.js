@@ -81,7 +81,7 @@ function CreatePostPage() {
 
   return (
     <div className="create-post-container">
-      <Typography variant="h4" className="title">✨ Create New Post</Typography>
+      <Typography variant="h4" className="title">Create New Post</Typography>
 
       <form onSubmit={handleSubmit} className="post-form">
 

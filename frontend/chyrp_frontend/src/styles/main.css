@@ -33,11 +33,45 @@ body, html {
   flex-direction: column;
   gap: 1.5rem;
 }
+.create-post-container .MuiFormControl-root .MuiInputBase-root {
+  background-color: #1e1e1e;
+  color: #f5f5f5;
+  border-radius: 0.5rem;
+}
+.create-post-container .MuiFormControl-root .MuiOutlinedInput-notchedOutline {
+  border-color: #444;
+}
+.create-post-container .MuiFormControl-root .Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #1976d2;
+}
+.create-post-container .MuiFormControl-root .MuiInputBase-input {
+  color: #f5f5f5;
+}
+.create-post-container .MuiFormControl-root .MuiInputLabel-root {
+  color: #aaa;
+}
+.create-post-container .MuiFormControl-root .MuiInputLabel-root.Mui-focused {
+  color: #1976d2;
+}
+.create-post-container .MuiFormControl-root .MuiFormHelperText-root {
+  color: #888;
+}
 .create-post-container .hashtags-field .hashtags-preview {
   margin-top: 0.5rem;
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+}
+.create-post-container .hashtags-field .hashtags-preview .MuiChip-root {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #555;
+}
+.create-post-container .hashtags-field .hashtags-preview .MuiChip-root .MuiChip-deleteIcon {
+  color: #aaa;
+}
+.create-post-container .hashtags-field .hashtags-preview .MuiChip-root .MuiChip-deleteIcon:hover {
+  color: #f00;
 }
 .create-post-container .file-upload-group {
   display: flex;
@@ -89,13 +123,17 @@ body, html {
   font-size: 0.9rem;
   color: #f5f5f5;
 }
-.create-post-container .submit-btn {
+.create-post-container .submit-btn,
+.create-post-container .MuiButton-root {
   padding: 0.75rem;
   font-size: 1.1rem;
   border-radius: 1rem;
   background: linear-gradient(90deg, #1976d2, #42a5f5);
+  color: white;
+  text-transform: none;
 }
-.create-post-container .submit-btn:hover {
+.create-post-container .submit-btn:hover,
+.create-post-container .MuiButton-root:hover {
   background: linear-gradient(90deg, #1565c0, #1e88e5);
 }
 
@@ -108,6 +146,7 @@ body, html {
   background-attachment: fixed;
   display: flex;
   flex-direction: column;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 .explore-container .explore-title {
   margin-bottom: 2rem;
@@ -119,6 +158,7 @@ body, html {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+  user-select: none;
 }
 .explore-container .search-bar {
   max-width: 700px;
@@ -133,14 +173,24 @@ body, html {
 }
 .explore-container .search-bar .MuiOutlinedInput-root fieldset {
   border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: border-color 0.3s ease;
 }
 .explore-container .search-bar .MuiOutlinedInput-root:hover fieldset {
   border-color: #7a5af5;
 }
+.explore-container .search-bar .MuiOutlinedInput-root.Mui-focused fieldset {
+  border-color: #7a5af5;
+  border-width: 2px;
+}
 .explore-container .search-bar .MuiOutlinedInput-root input {
   color: #f5f5f5;
+  font-size: 1rem;
+  letter-spacing: 0.03em;
 }
 .explore-container .search-bar .MuiOutlinedInput-root .MuiInputAdornment-root {
+  color: #bbb;
+}
+.explore-container .search-bar .MuiOutlinedInput-root .MuiIconButton-root {
   color: #bbb;
 }
 .explore-container .search-bar input {
@@ -157,6 +207,8 @@ body, html {
   gap: 1.5rem;
 }
 .explore-container .post-card {
+  text-decoration: none;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   background: rgba(30, 30, 30, 0.95);
@@ -164,15 +216,20 @@ body, html {
   border-radius: 14px;
   overflow: hidden;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
-.explore-container .post-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6);
+.explore-container .post-card, .explore-container .post-card * {
+  text-decoration: none !important;
+}
+.explore-container .post-card:hover, .explore-container .post-card:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
 }
 .explore-container .post-card .post-image,
 .explore-container .post-card .post-video {
   object-fit: cover;
   width: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 .explore-container .post-card .MuiCardContent-root {
   padding: 1rem 1.25rem;
@@ -198,6 +255,10 @@ body, html {
 .explore-container .post-card .post-header .user-info .MuiTypography-subtitle1 {
   font-weight: 600;
   color: #fff;
+  max-width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .explore-container .post-card .post-header .user-info .MuiTypography-caption {
   color: #aaa;
@@ -211,21 +272,19 @@ body, html {
   max-height: 3.9em;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
+  user-select: text;
 }
 .explore-container .post-card .post-snippet {
   flex-grow: 1;
   color: #ddd;
   font-size: 0.92rem;
   line-height: 1.4;
+  max-height: 1.4em;
   overflow: hidden;
-  max-height: 4.2em;
   text-overflow: ellipsis;
-}
-.explore-container .post-card .post-meta {
-  color: #999;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-top: 0.5rem;
-  font-size: 0.8rem;
+  white-space: nowrap;
+  user-select: text;
 }
 .explore-container .post-card .file-links {
   margin-top: 0.5rem;
@@ -242,13 +301,36 @@ body, html {
   text-decoration: none;
   transition: background 0.2s;
 }
-.explore-container .post-card .file-links .file-link:hover {
+.explore-container .post-card .file-links .file-link:hover, .explore-container .post-card .file-links .file-link:focus-visible {
   background: #3a3a3a;
+  outline: none;
 }
 .explore-container .skeleton-card {
   background: rgba(40, 40, 40, 0.9);
   border-radius: 14px;
   overflow: hidden;
+}
+.explore-container .skeleton-card .skeleton-media {
+  border-radius: 6px 6px 0 0;
+}
+.explore-container .no-results {
+  text-align: center;
+  margin-top: 3rem;
+  color: #888;
+  font-style: italic;
+}
+@media (max-width: 480px) {
+  .explore-container {
+    padding: 1rem;
+  }
+  .explore-container .post-list {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .explore-container .explore-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
 }
 
 .post-page {
@@ -297,19 +379,44 @@ body, html {
   object-fit: cover;
   display: block;
 }
-.post-page .hashtags {
+.post-page .post-meta-block {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(6px);
+  border-radius: 12px;
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 1rem;
+  transition: background 0.3s;
+}
+.post-page .post-meta-block:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+.post-page .post-meta-block .category-chip {
+  background: #6a5acd;
+  color: #fff;
+  font-weight: 500;
+}
+.post-page .post-meta-block .category-chip .MuiSvgIcon-root {
+  color: #fff;
+}
+.post-page .post-meta-block .hashtags-wrapper {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  margin-left: auto;
 }
-.post-page .hashtags .MuiChip-root {
-  background: rgba(255, 255, 255, 0.08);
-  color: #ddd;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+.post-page .post-meta-block .hashtags-wrapper .MuiChip-root {
   font-weight: 500;
+  transition: transform 0.2s ease, background 0.2s ease;
 }
-.post-page .hashtags .MuiChip-root:hover {
-  background: rgba(255, 255, 255, 0.15);
+.post-page .post-meta-block .hashtags-wrapper .MuiChip-root:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  transform: scale(1.05);
 }
 .post-page .post-content {
   background: rgba(255, 255, 255, 0.04);
@@ -346,12 +453,6 @@ body, html {
 }
 .post-page .post-actions {
   margin-top: 1rem;
-}
-.post-page .comments-thread {
-  margin-top: 2rem;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  padding: 1rem;
 }
 
 .auth-page {
@@ -483,12 +584,20 @@ body, html {
   color: var(--muted);
   margin-left: 0.5rem;
 }
+.hero .MuiGrid-root {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
 .hero .hero-visual {
   position: relative;
+  width: 100%;
 }
 .hero .hero-visual img {
+  object-fit: cover;
   width: 100%;
-  height: auto;
+  max-height: 300px;
   border-radius: 18px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -541,6 +650,11 @@ body, html {
 .about {
   padding: 2rem 0 0;
 }
+.about .MuiGrid-root {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
 .about .about-card {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -548,6 +662,7 @@ body, html {
   overflow: hidden;
 }
 .about .about-card img {
+  max-height: 300px;
   aspect-ratio: 16/10;
   object-fit: cover;
 }
@@ -589,6 +704,9 @@ body, html {
   color: var(--fg);
 }
 .features .features-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-top: 0.25rem;
 }
 .features .feature-card {
@@ -805,25 +923,61 @@ body, html {
 }
 .comments-thread .comment-form {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.75rem;
   margin-bottom: 1.5rem;
+  padding: 1rem;
+  border-radius: 12px;
+}
+.comments-thread .comment-form .comment-avatar {
+  width: 40px;
+  height: 40px;
+  margin-top: 2px;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  font-size: 1rem;
+  background-color: #333;
+  color: #ccc;
 }
 .comments-thread .comment-form .comment-input {
-  background: rgba(255, 255, 255, 0.05);
+  flex: 1;
+}
+.comments-thread .comment-form .comment-input .input-root {
   border-radius: 10px;
+  background: rgba(255, 255, 255, 0.02);
 }
-.comments-thread .comment-form .comment-input input {
+.comments-thread .comment-form .comment-input .input-outline {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+.comments-thread .comment-form .comment-input .input-multiline {
   color: #eee;
+  padding: 0.75rem 1rem !important;
+  line-height: 1.5;
 }
-.comments-thread .comment-form .comment-input fieldset {
-  border-color: rgba(255, 255, 255, 0.2);
+.comments-thread .comment-form .comment-input:hover .input-outline {
+  border-color: #666 !important;
+}
+.comments-thread .comment-form .comment-input.Mui-focused .input-outline {
+  border-color: #888 !important;
 }
 .comments-thread .comment-form .comment-btn {
-  padding: 0.5rem 1.25rem;
-  border-radius: 10px;
-  font-weight: 600;
-  text-transform: none;
+  min-width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  padding: 0;
+  font-size: 1.2rem;
+  color: #ddd;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.05);
+  transition: background-color 0.2s, color 0.2s;
+}
+.comments-thread .comment-form .comment-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+.comments-thread .comment-form .comment-btn:disabled {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #777;
+  cursor: not-allowed;
 }
 .comments-thread .comments-list .comment-item {
   align-items: flex-start;
@@ -834,6 +988,8 @@ body, html {
   height: 42px;
   margin-right: 0.75rem;
   border: 2px solid rgba(255, 255, 255, 0.15);
+  background-color: #333;
+  color: #ccc;
 }
 .comments-thread .comments-list .comment-item .comment-header {
   display: flex;
@@ -859,30 +1015,8 @@ body, html {
   background: rgba(255, 255, 255, 0.1);
 }
 
-.like-button {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: transparent;
-  border-radius: 2rem;
-  padding: 4px 8px;
-  transition: background 0.3s ease;
-}
-.like-button:hover {
-  background: rgba(255, 255, 255, 0.05);
-}
-.like-button .like-icon {
-  color: #aaa;
-  transition: transform 0.2s ease, color 0.3s ease;
-}
-.like-button .like-icon.liked {
-  color: #ff4d6d;
-  transform: scale(1.2);
-}
-.like-button .like-count {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #e0e0e0;
+.like-button.liked {
+  color: #e91e63;
 }
 
 .header {

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { fetchComments, addComment } from '../services/postService';
 import {
   Avatar,
   Button,
@@ -11,12 +10,20 @@ import {
   Typography,
   Divider,
 } from '@mui/material';
+import { fetchComments, addComment } from '../services/postService';
+import { getCurrentUser } from '../services/auth';
 import { formatDistanceToNow } from 'date-fns';
-// import './CommentsThread.scss';
 
 export default function CommentsThread({ postId }) {
   const [comments, setComments] = useState([]);
   const [message, setMessage] = useState('');
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    getCurrentUser()
+      .then((res) => setUser(res.data))
+      .catch((err) => console.error('User fetch failed:', err));
+  }, []);
 
   useEffect(() => {
     loadComments();
@@ -49,17 +56,36 @@ export default function CommentsThread({ postId }) {
 
       {/* Comment Form */}
       <form onSubmit={handleSubmit} className="comment-form">
+        <Avatar className="comment-avatar" src={user?.profile_pic || undefined}>
+          {(user?.display_name || user?.username)?.[0]?.toUpperCase()}
+        </Avatar>
+
         <TextField
-          size="small"
-          placeholder="Write a comment..."
+          placeholder="Join the conversation..."
           value={message}
           onChange={(e) => setMessage(e.target.value)}
+          multiline
+          minRows={2}
+          maxRows={5}
           fullWidth
-          className="comment-input"
           variant="outlined"
+          className="comment-input"
+          InputProps={{
+            classes: {
+              root: 'input-root',
+              notchedOutline: 'input-outline',
+              inputMultiline: 'input-multiline',
+            },
+          }}
         />
-        <Button type="submit" variant="contained" className="comment-btn">
-          Post
+
+        <Button
+          type="submit"
+          variant="outlined"
+          className="comment-btn"
+          disabled={!message.trim()}
+        >
+          ✉
         </Button>
       </form>
 

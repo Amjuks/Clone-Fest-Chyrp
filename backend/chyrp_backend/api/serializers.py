@@ -1,6 +1,6 @@
 # app/serializers.py
 from rest_framework import serializers
-from .models import Comment, Like, User, Post, PostFile
+from .models import Comment, Like, User, Post, PostFile, Hashtag, Category
 
 class UserInlineSerializer(serializers.ModelSerializer):
     profile_pic = serializers.SerializerMethodField()
@@ -42,6 +42,13 @@ class PostSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source="user.username", read_only=True)
     profile_pic = serializers.SerializerMethodField()
     files = PostFileSerializer(many=True, read_only=True)
+
+    category = serializers.SlugRelatedField(slug_field='name', queryset=Category.objects.all())
+    hashtags = serializers.SlugRelatedField(
+        many=True,
+        slug_field='name',
+        queryset=Hashtag.objects.all()
+    )
 
     class Meta:
         model = Post

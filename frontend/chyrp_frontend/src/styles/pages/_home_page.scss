@@ -100,12 +100,21 @@
     }
   }
 
+  .MuiGrid-root {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+
   .hero-visual {
     position: relative;
+    width: 100%;
 
     img {
+      object-fit: cover;
       width: 100%;
-      height: auto;
+      max-height: 300px;
       border-radius: 18px;
       box-shadow: 0 20px 60px rgba(0,0,0,0.6);
       border: 1px solid rgba(255,255,255,0.06);
@@ -165,6 +174,12 @@
 .about {
   padding: 2rem 0 0;
 
+  .MuiGrid-root {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
   .about-card {
     background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
     border: 1px solid rgba(255,255,255,0.08);
@@ -172,6 +187,7 @@
     overflow: hidden;
 
     img {
+      max-height: 300px;
       aspect-ratio: 16/10;
       object-fit: cover;
     }
@@ -224,6 +240,9 @@
   }
 
   .features-grid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-top: .25rem;
   }
 
