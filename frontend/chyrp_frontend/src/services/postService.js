@@ -1,3 +1,4 @@
+// src/services/postService.js
 import API from './api';
 import { getCSRFToken } from './auth';
 
@@ -12,3 +13,13 @@ export const createPost = async (formData) => {
     },
   });
 };
+
+// Comments
+export const fetchComments = (postId) =>
+  API.get(`comments/?post=${postId}`);
+export const addComment = (postId, message) =>
+  API.post('comments/', { post: postId, message });
+
+// Likes (use toggle only)
+export const toggleLike = (postId) =>
+  API.post('likes/toggle/', { post_id: postId });

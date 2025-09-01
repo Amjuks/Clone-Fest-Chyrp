@@ -1,12 +1,13 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 from . import views
-from .views import CommentViewSet, LikeViewSet
+from .views import CommentViewSet, LikeViewSet, PostViewSet
 
 # Define your router and register your viewsets
 router = DefaultRouter()
 router.register(r'comments', CommentViewSet, basename='comments')
 router.register(r'likes', LikeViewSet, basename='likes')
+router.register(r"posts", PostViewSet, basename="post")
 
 # Existing Django URL patterns
 urlpatterns = [

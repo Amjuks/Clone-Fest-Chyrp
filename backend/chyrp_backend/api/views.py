@@ -15,7 +15,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 
 from .models import User, Post, Category, Hashtag, PostFile, Comment, Like
-from .serializers import CommentSerializer, LikeSerializer
+from .serializers import CommentSerializer, LikeSerializer, PostSerializer
 
 @method_decorator(login_required, name='dispatch')
 class HomeView(View):
@@ -73,9 +73,6 @@ def logout_view(request):
     logout(request)
     return JsonResponse({'message': 'Logged out successfully'})
 
-from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.utils import timezone
 from django.core.exceptions import ValidationError
@@ -144,23 +141,11 @@ def list_posts(request):
 
 def get_post(request, post_id):
     post = get_object_or_404(Post.objects.select_related('user', 'category'), pk=post_id)
-    
-    data = {
-        'id': post.id,
-        'title': post.title,
-        'content': post.content,
-        'username': post.user.username,
-        'display_name': post.user.display_name,
-        'profile_pic': post.user.profile_pic.url if post.user.profile_pic else None,
-        'image': post.image.url if post.image else None,
-        'video': post.video.url if post.video else None,
-        'category': post.category.name if post.category else None,
-        'created_at': post.created_at.strftime('%Y-%m-%d %H:%M'),
-    }
-    return JsonResponse(data)
+    serializer = PostSerializer(post, context={"request": request})
+    return JsonResponse(serializer.data, safe=False)
 
 class CommentViewSet(viewsets.ModelViewSet):
-    queryset = Comment.objects.all()
+    queryset = Comment.objects.all().order_by("sent_at")
     serializer_class = CommentSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
@@ -168,10 +153,11 @@ class CommentViewSet(viewsets.ModelViewSet):
         serializer.save(user=self.request.user)
 
     def get_queryset(self):
-        post_id = self.request.query_params.get('post')
+        post_id = self.request.query_params.get("post")
         if post_id:
-            return Comment.objects.filter(post_id=post_id).order_by('sent_at')
+            return Comment.objects.filter(post_id=post_id).order_by("sent_at")
         return Comment.objects.none()
+
 
 class LikeViewSet(viewsets.ModelViewSet):
     queryset = Like.objects.all()
@@ -182,22 +168,50 @@ class LikeViewSet(viewsets.ModelViewSet):
         serializer.save(user=self.request.user)
 
     def get_queryset(self):
-        post_id = self.request.query_params.get('post')
+        post_id = self.request.query_params.get("post")
         if post_id:
             return Like.objects.filter(post_id=post_id)
         return Like.objects.none()
 
     def create(self, request, *args, **kwargs):
-        post_id = request.data.get('post')
+        post_id = request.data.get("post")
         if Like.objects.filter(user=request.user, post_id=post_id).exists():
             return Response({"detail": "Already liked"}, status=status.HTTP_400_BAD_REQUEST)
         return super().create(request, *args, **kwargs)
 
-    @action(detail=False, methods=['delete'], permission_classes=[permissions.IsAuthenticated])
+    @action(detail=False, methods=["delete"], permission_classes=[permissions.IsAuthenticated])
     def unlike(self, request):
-        post_id = request.data.get('post')
+        post_id = request.data.get("post")
         like = Like.objects.filter(user=request.user, post_id=post_id).first()
         if like:
             like.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
         return Response({"detail": "Like not found"}, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=False, methods=["post"], url_path="toggle")
+    def toggle_like(self, request):
+        post_id = request.data.get("post_id")
+        post = Post.objects.get(id=post_id)
+        user = request.user
+
+        like, created = Like.objects.get_or_create(user=user, post=post)
+        if not created:
+            like.delete()
+            return Response({
+                "liked": False,
+                "like_count": post.likes.count()
+            })
+        return Response({
+            "liked": True,
+            "like_count": post.likes.count()
+        })
+    
+class PostViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all().order_by("-created_at")
+    serializer_class = PostSerializer
+    permission_classes = [permissions.AllowAny]
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context.update({"request": self.request})
+        return context

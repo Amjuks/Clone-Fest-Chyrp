@@ -129,3 +129,7 @@ test-results/
 package-lock.json
 yarn.lock
 pnpm-lock.yaml
+
+# Ignore any nested static/ or media/ folders (Django generated)
+**/static/
+**/media/
