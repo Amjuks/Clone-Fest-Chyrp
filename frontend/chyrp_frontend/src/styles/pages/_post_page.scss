@@ -12,11 +12,13 @@
   .post-header {
     display: flex;
     align-items: center;
+    justify-content: space-between; // ensures proper spacing
     gap: 1rem;
     background: rgba(255, 255, 255, 0.05);
     padding: 1rem 1.5rem;
     border-radius: 14px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    flex-wrap: wrap; // makes it responsive
 
     .MuiAvatar-root {
       border: 2px solid #6a5acd;
@@ -24,6 +26,9 @@
     }
 
     .header-info {
+      flex: 1 1 auto;
+      min-width: 200px;
+
       .post-title {
         font-size: 1.8rem;
         font-weight: 700;
@@ -34,7 +39,32 @@
         font-size: 0.9rem;
       }
     }
+
+    .edit-post-button {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      border: 1px solid #6a5acd;
+      border-radius: 8px;
+      padding: 0.4rem 1rem;
+      font-weight: 600;
+      text-transform: none;
+      box-shadow: 0 0 8px rgba(106, 90, 205, 0.3);
+      backdrop-filter: blur(6px);
+      transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+      white-space: nowrap;
+
+      &:hover {
+        background: rgba(106, 90, 205, 0.15);
+        transform: scale(1.05);
+        box-shadow: 0 0 12px rgba(106, 90, 205, 0.5);
+      }
+
+      .MuiSvgIcon-root {
+        font-size: 20px;
+      }
+    }
   }
+
 
   .media-grid {
     .media-preview {
@@ -98,7 +128,6 @@
     }
   }
 }
-
 
   .post-content {
     background: rgba(255, 255, 255, 0.04);

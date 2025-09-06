@@ -86,14 +86,16 @@ WSGI_APPLICATION = 'chyrp_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+import os
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'chyrp_db',
-        'USER': 'chyrp_user',
-        'PASSWORD': '87654321',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': os.getenv('DATABASE_NAME', 'chyrp_db'),
+        'USER': os.getenv('DATABASE_USER', 'chyrp_user'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD', '87654321'),
+        'HOST': os.getenv('DATABASE_HOST', 'localhost'),
+        'PORT': os.getenv('DATABASE_PORT', '5432'),
     }
 }
 

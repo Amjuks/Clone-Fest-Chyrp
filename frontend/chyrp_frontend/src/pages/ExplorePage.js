@@ -210,7 +210,7 @@ const ExplorePage = () => {
                     key={id}
                     className="post-card"
                     component={RouterLink}
-                    to={`/post/${id}`}
+                    to={`/posts/${id}`}
                     elevation={4}
                     tabIndex={0}
                     aria-label={`View post titled ${title}`}

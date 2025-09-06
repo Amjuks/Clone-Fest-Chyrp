@@ -1,0 +1,51 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:15
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: chyrp_db
+      POSTGRES_USER: chyrp_user
+      POSTGRES_PASSWORD: 87654321
+    ports:
+      - "5432:5432"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_NAME=chyrp_db
+      - DATABASE_USER=chyrp_user
+      - DATABASE_PASSWORD=87654321
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+      - DJANGO_SUPERUSER_USERNAME=super
+      - DJANGO_SUPERUSER_EMAIL=super@user.com
+      - DJANGO_SUPERUSER_PASSWORD=user
+    entrypoint: /entrypoint.sh  # 👈 Ensures the custom script is run
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend/chyrp_frontend:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    tty: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
+volumes:
+  pgdata:

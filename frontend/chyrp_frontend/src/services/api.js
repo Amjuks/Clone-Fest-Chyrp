@@ -9,7 +9,6 @@ const API = axios.create({
   },
 });
 
-// helper: get cookie by name
 function getCookie(name) {
   let cookieValue = null;
   if (document.cookie && document.cookie !== "") {

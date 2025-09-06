@@ -8,19 +8,36 @@ import {
   CircularProgress,
   Paper,
   Box,
+  Button
 } from '@mui/material';
 import { InsertDriveFile as FileIcon } from '@mui/icons-material';
 import LikeButton from '../components/LikeButton';
 import CategoryIcon from '@mui/icons-material/Category';
+import EditIcon from '@mui/icons-material/EditOutlined';
 import CommentsThread from '../components/CommentsThread';
 import API from '../services/api';
 import { formatDistanceToNow } from 'date-fns';
+import { getCurrentUser } from '../services/auth';
 
 const PostPage = () => {
   const { id } = useParams();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    API.get(`posts/${id}/`)
+      .then(res => setPost(res.data))
+      .catch(err => {
+        console.error('Error fetching post:', err);
+        navigate('/');
+      });
+
+    getCurrentUser()
+      .then(res => setCurrentUser(res.data))
+      .catch(() => {});
+  }, [id, navigate]);
 
   useEffect(() => {
     API.get(`posts/${id}/`)
@@ -87,6 +104,17 @@ const PostPage = () => {
             })}
           </Typography>
         </div>
+
+          {/* Edit Button (for owner) */}
+          {currentUser && currentUser.id === post.author && (
+            <Button
+              className="edit-post-button"
+              onClick={() => navigate(`/posts/${post.id}/edit`)}
+              startIcon={<EditIcon />}
+            >
+              Edit
+            </Button>
+          )}
       </header>
 
       {/* Media */}

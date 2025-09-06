@@ -206,10 +206,18 @@ class LikeViewSet(viewsets.ModelViewSet):
             "like_count": post.likes.count()
         })
     
+class IsOwnerOrReadOnly(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        # SAFE_METHODS = GET, HEAD, OPTIONS → anyone can view
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        # Write perms only for the post's author
+        return obj.user == request.user
+    
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all().order_by("-created_at")
     serializer_class = PostSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [IsOwnerOrReadOnly]
 
     def get_serializer_context(self):
         context = super().get_serializer_context()

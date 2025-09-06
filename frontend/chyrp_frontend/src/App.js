@@ -8,6 +8,7 @@ import RegisterPage from './pages/RegisterPage';
 import CreatePostPage from './pages/CreatePostPage';
 import ExplorePage from './pages/ExplorePage';
 import PostPage from './pages/PostPage';
+import EditPostPage from './pages/EditPostPage';
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/create" element={<CreatePostPage />} />
         <Route path="/explore" element={<ExplorePage />} />
-        <Route path="/post/:id" element={<PostPage />} />
+        <Route path="/posts/:id" element={<PostPage />} />
+        <Route path="/posts/:id/edit" element={<EditPostPage />} />
       </Routes>
     </Router>
   );

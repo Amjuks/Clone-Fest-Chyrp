@@ -347,15 +347,21 @@ body, html {
 .post-page .post-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 1rem;
   background: rgba(255, 255, 255, 0.05);
   padding: 1rem 1.5rem;
   border-radius: 14px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  flex-wrap: wrap;
 }
 .post-page .post-header .MuiAvatar-root {
   border: 2px solid #6a5acd;
   box-shadow: 0 0 10px rgba(106, 90, 205, 0.5);
+}
+.post-page .post-header .header-info {
+  flex: 1 1 auto;
+  min-width: 200px;
 }
 .post-page .post-header .header-info .post-title {
   font-size: 1.8rem;
@@ -365,6 +371,27 @@ body, html {
 .post-page .post-header .header-info .post-meta {
   color: #aaa;
   font-size: 0.9rem;
+}
+.post-page .post-header .edit-post-button {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border: 1px solid #6a5acd;
+  border-radius: 8px;
+  padding: 0.4rem 1rem;
+  font-weight: 600;
+  text-transform: none;
+  box-shadow: 0 0 8px rgba(106, 90, 205, 0.3);
+  backdrop-filter: blur(6px);
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+  white-space: nowrap;
+}
+.post-page .post-header .edit-post-button:hover {
+  background: rgba(106, 90, 205, 0.15);
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(106, 90, 205, 0.5);
+}
+.post-page .post-header .edit-post-button .MuiSvgIcon-root {
+  font-size: 20px;
 }
 .post-page .media-grid .media-preview {
   background: rgba(255, 255, 255, 0.06);
@@ -908,6 +935,62 @@ body, html {
     font-size: 1.5rem;
   }
 }
+.edit-post-container {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: linear-gradient(145deg, #1c1c1c, #2a2a2a);
+  border-radius: 1rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+  color: #f5f5f5;
+}
+.edit-post-container .page-title {
+  text-align: center;
+  color: #90caf9;
+  margin-bottom: 2rem;
+  font-weight: bold;
+}
+.edit-post-container .edit-post-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.edit-post-container .edit-post-form .MuiFormControl-root .MuiInputBase-root {
+  background-color: #1e1e1e;
+  color: #f5f5f5;
+  border-radius: 0.5rem;
+}
+.edit-post-container .edit-post-form .MuiFormControl-root .MuiOutlinedInput-notchedOutline {
+  border-color: #444;
+}
+.edit-post-container .edit-post-form .MuiFormControl-root .Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #1976d2;
+}
+.edit-post-container .edit-post-form .MuiFormControl-root .MuiInputBase-input {
+  color: #f5f5f5;
+}
+.edit-post-container .edit-post-form .MuiFormControl-root .MuiInputLabel-root {
+  color: #aaa;
+}
+.edit-post-container .edit-post-form .MuiFormControl-root .MuiInputLabel-root.Mui-focused {
+  color: #1976d2;
+}
+.edit-post-container .edit-post-form .MuiFormControl-root .MuiFormHelperText-root {
+  color: #888;
+}
+.edit-post-container .edit-post-form .MuiButton-root {
+  background: linear-gradient(to right, #1976d2, #42a5f5);
+  color: white;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 0.75rem;
+  text-transform: none;
+  font-weight: 600;
+}
+.edit-post-container .edit-post-form .MuiButton-root:hover {
+  background: linear-gradient(to right, #1565c0, #1e88e5);
+}
+
 .comments-thread {
   margin-top: 2rem;
   background: rgba(20, 20, 30, 0.6);
